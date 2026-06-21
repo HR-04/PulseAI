@@ -1,0 +1,8 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LOOP">
+  <rect width="300" height="300" rx="52" fill="#0a0a0a"/>
+  <g transform="translate(48,116) scale(1.82)" fill="#ffffff">
+    <text x="0" y="32" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800" letter-spacing="-2">L</text>
+    <path d="M51,20 C51,6 30,6 30,20 C30,34 51,34 51,20 C51,6 72,6 72,20 C72,34 51,34 51,20 Z" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+    <text x="79" y="32" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800" letter-spacing="-2">P</text>
+  </g>
+</svg>
