@@ -7,7 +7,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { randomBytes } from "node:crypto";
 import { config } from "../config";
 
-const SCOPES = "openid profile w_member_social";
+const SCOPES = config.linkedin.scopes;
 
 function authUrl(state: string): string {
   const p = new URLSearchParams({

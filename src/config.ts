@@ -39,6 +39,9 @@ export const config = {
     clientId: process.env.LINKEDIN_CLIENT_ID ?? "",
     clientSecret: process.env.LINKEDIN_CLIENT_SECRET ?? "",
     redirectUri: process.env.LINKEDIN_REDIRECT_URI ?? "http://localhost:5555/callback",
+    // Posting needs w_member_social (from the "Share on LinkedIn" product). Set
+    // LINKEDIN_SCOPES="openid profile" to test sign-in before that product is enabled.
+    scopes: process.env.LINKEDIN_SCOPES ?? "openid profile w_member_social",
     accessToken: process.env.LINKEDIN_ACCESS_TOKEN ?? "",
     authorUrn: process.env.LINKEDIN_AUTHOR_URN ?? "",
   },
