@@ -1,98 +1,67 @@
 # PulseAI
 
-A self-improving research agent. Give it a topic; it plans sub-queries, searches the
-web + communities, filters out low-quality sources, deep-reads the good ones, scores its
-own research, and **loops until the research is strong enough** — then synthesizes a
-thesis with cited claims and saves it to a notebook.
+A self-improving research agent. Give it a topic; it researches the web + communities,
+scores its own sources, and **loops until the research clears a quality bar** — then writes
+a verified blog post, a LinkedIn post, and an illustration, publishes them to a Medium-style
+site (**LOOP**), and can post to LinkedIn.
 
-The model backend is **Intelligence Studio** (the deployed `AI-News-Model` agent),
-called through the App Central gateway. It's swappable via one interface (`src/llm.ts`).
+Model backend: **Intelligence Studio** (`AI-News-Model` agent) behind one swappable
+interface (`src/llm.ts`); Ollama fallback included.
 
-> **Status: Phase 1 complete** — the research loop runs end-to-end. Phases 2 (content
-> generation) and 3 (daily digest email) are scaffolded in `BUILD_SPEC.md` but not built.
-
----
-
-## How the loop works (BUILD_SPEC §3)
+## Pipeline
 
 ```
-plan → search → input-gate → dedupe → extract → score(researchScore) → assess
-     └────────────── refine queries & repeat (capped) ◀── NO ──┘
-                                                          YES → synthesize → notebook
+topic → plan → search → quality-gate → extract → score → refine&loop
+      → synthesize → blog.md + linkedin.txt + image → publish (site) → post (LinkedIn)
 ```
 
-It **stops** when ANY is true: `researchScore ≥ TARGET` (75), or `MAX_ROUNDS` (3) reached,
-or the round-over-round gain `< MIN_GAIN` (5, i.e. diminishing returns). On a NO decision
-it refines queries aimed at the **weakest** scoring dimension (quality / diversity /
-coverage / recency).
-
----
+The loop **stops** when the research score ≥ `TARGET` (75), `MAX_ROUNDS` (3) is hit, or the
+gain plateaus (`< MIN_GAIN`). On a "keep going", it refines toward the weakest dimension
+(source quality / diversity / coverage / recency). Knobs live in `src/config.ts`.
 
 ## Setup
 
-**Prerequisites:** Node ≥ 20 (tested on 24), and — optionally — Podman for SearXNG.
-
 ```bash
 npm install
-cp .env.example .env     # then fill in the AIS credentials (see below)
+cp .env.example .env      # fill in Intelligence Studio + LinkedIn credentials
 ```
 
-`.env` (git-ignored) needs the Intelligence Studio credentials:
-```
-LLM_PROVIDER=ais
-INTELLIGENCE_STUDIO_API_KEY="sk-..."
-IAM_CLIENT_ID="...-SERVICE"
-IAM_CLIENT_SECRET="..."
-IAM_TOKEN_URL="https://your-ais-gateway/iam/auth/realms/ais/protocol/openid-connect/token"
-AIS_RUN_URL="https://your-ais-gateway/ais/api/v1/run/<flow-id>"
-```
-
-**SearXNG (optional but recommended)** for whole-web breadth — see [searxng/SETUP.md](searxng/SETUP.md).
-Without it, the run still works on the keyless adapters (Google News, HN, Dev.to, RSS).
-
----
+- **SearXNG** (optional, whole-web search) — see [searxng/SETUP.md](searxng/SETUP.md). Without it,
+  keyless adapters (Google News, HN, Dev.to, RSS) carry the run.
+- **LinkedIn** (optional, auto-posting) — run `npm run linkedin:auth` once.
 
 ## Commands
 
-```bash
-npm run test:llm                       # verify the AIS model backend responds
-npm run test:search "a topic"          # verify the search + extract layer
-npm run research "your topic"          # run the full Phase 1 loop (content mode)
-npm run research "a market" -- --mode=market-intel   # stricter, evidence-first mode
-npm run typecheck                      # tsc --noEmit
-```
+| Command | Does |
+|---|---|
+| `npm run research "topic"` | research → scored, synthesized notebook entry (`output/notebook/`) |
+| `npm run generate:pro -- --intent="…" <notebook.json>` | blog + LinkedIn + image (best-of-N, claim-verified); auto-publishes to the site |
+| `npm run serve` | serve the LOOP blog at `localhost:4000` |
+| `npm run publish -- <blog-base>` | (re)publish a post into the site |
+| `npm run linkedin:auth` | one-time LinkedIn OAuth (saves token to `.env`) |
+| `npm run linkedin:post -- "<file.txt>"` | post a generated `.txt` to LinkedIn |
+| `npm run test:llm` · `test:search` · `typecheck` | connectivity + type checks |
 
-Add `PULSE_DEBUG=1` to see per-source result counts.
+Add `--mode=market-intel` to `research` for a stricter, evidence-first brief. `PULSE_DEBUG=1` shows per-source counts.
 
-Output lands in:
-- `output/notebook/<date>-<topic>.json` — the saved `ResearchResult` (your learning record)
-- `output/eval-reports/<date>-<topic>.json` + `history.jsonl` — per-run scorecard + rolling history
+## Stack
 
----
+TypeScript / Node (ESM, `tsx`). One `Article` shape + one `LLM` interface → drop-in search
+adapters and model providers. Fetches cached under `.cache/`. The blog renders to a static
+Medium-style site in `site/`, deployable to Vercel (`vercel.json`).
 
-## Configuration (`src/config.ts`)
+## Status
 
-| Key | Default | Meaning |
-|-----|---------|---------|
-| `TARGET` | 75 | researchScore that stops the loop |
-| `MAX_ROUNDS` | 3 | hard cap on rounds |
-| `MIN_GAIN` | 5 | plateau threshold |
-| `FRESHNESS_DAYS` | 365 | non-evergreen recency window |
-| `RESULTS_PER_QUERY` | 8 | per-query result target |
-| `LLM_PROVIDER` | `ais` | model backend (`ais` \| `ollama`) |
+| Phase | |
+|---|---|
+| Research loop | ✅ |
+| Content generation (blog + LinkedIn + image, with claim-to-source gate) | ✅ |
+| Website (LOOP, Medium-style) + LinkedIn auto-posting | ✅ |
+| Scheduled daily AI-news digest email | ⬜ not built |
 
----
+## Honest limits
 
-## Architecture notes
-
-- **One source shape** (`Article`) and **one model interface** (`LLM`) — adapters and
-  providers are drop-in (`src/search/adapters/*`, providers in `src/llm.ts`).
-- **Caching:** raw fetches are cached under `.cache/http` so runs are replayable.
-- **The AIS flow is a tool-using Agent**, not a bare LLM, so PulseAI's reasoning prompts
-  explicitly steer it to answer directly; PulseAI does its own search per the spec.
-
-## Honest limitations (BUILD_SPEC §14)
-1. SearXNG is local-only; a deployed site can't reach it.
-2. Full-text extraction fails on paywalls / bot-blocks / JS-only pages → snippet fallback.
-3. Reddit's keyless endpoint rate-limits; it's best-effort, never the backbone.
-4. Quality gates intentionally reduce throughput — that's the point.
+- SearXNG is local-only (a deployed site can't reach it); keyless adapters still work.
+- Full-text extraction falls back to snippets on paywalls / JS-only pages.
+- The image model produces illustrations, not precise diagrams (embedded text can garble).
+- LinkedIn access tokens expire ~60 days → re-run `npm run linkedin:auth`.
