@@ -87,7 +87,7 @@ a{color:inherit;text-decoration:none}
 .post-title{font-size:42px;line-height:1.15;font-weight:800;letter-spacing:-.5px;margin:18px 0 16px}
 .post-meta{color:var(--muted);font-size:15px;margin-bottom:28px}
 .hero{width:100%;border-radius:12px;margin:6px 0 36px;border:1px solid var(--line)}
-.post-body{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.8;color:#242424}
+.post-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:18px;line-height:1.75;color:#242424}
 .post-body h2{font-family:-apple-system,"Segoe UI",sans-serif;font-size:30px;font-weight:800;
   letter-spacing:-.3px;margin:46px 0 14px}
 .post-body h3{font-family:-apple-system,"Segoe UI",sans-serif;font-size:23px;font-weight:700;margin:34px 0 10px}
