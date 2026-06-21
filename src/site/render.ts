@@ -60,7 +60,8 @@ body{margin:0;color:var(--ink);background:var(--bg);
 a{color:inherit;text-decoration:none}
 .site-head{display:flex;align-items:center;gap:14px;max-width:1100px;margin:0 auto;
   padding:20px 24px;border-bottom:1px solid var(--line)}
-.brand{font-weight:800;font-size:22px;letter-spacing:-.3px}
+.brand{font-weight:800;font-size:22px;letter-spacing:-.3px;display:inline-flex;align-items:center}
+.brand .logo{height:26px;width:auto;display:block}
 .brand .dot{color:var(--accent)}
 .site-head .tag{color:var(--muted);font-size:13px}
 
@@ -115,6 +116,14 @@ a{color:inherit;text-decoration:none}
 }
 `;
 
+// LOOP wordmark — the two O's form an infinity loop (recreated as inline SVG).
+const LOGO =
+  `<svg class="logo" viewBox="0 0 112 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LOOP">` +
+  `<text x="0" y="32" font-family="-apple-system,Segoe UI,Arial,sans-serif" font-size="40" font-weight="800" letter-spacing="-2" fill="#0f172a">L</text>` +
+  `<path d="M51,20 C51,6 30,6 30,20 C30,34 51,34 51,20 C51,6 72,6 72,20 C72,34 51,34 51,20 Z" fill="none" stroke="#0f172a" stroke-width="7" stroke-linecap="round"/>` +
+  `<text x="79" y="32" font-family="-apple-system,Segoe UI,Arial,sans-serif" font-size="40" font-weight="800" letter-spacing="-2" fill="#0f172a">P</text>` +
+  `</svg>`;
+
 function card(p: PostMeta): string {
   const thumb = p.image
     ? `<img class="thumb" src="assets/${esc(p.image)}" alt="">`
@@ -138,7 +147,7 @@ export function renderIndexHtml(posts: PostMeta[]): string {
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PulseAI — Blog</title><link rel="stylesheet" href="style.css">
 </head><body>
-<header class="site-head"><a class="brand" href="index.html">Pulse<span class="dot">AI</span></a>
+<header class="site-head"><a class="brand" href="index.html">${LOGO}</a>
 <span class="tag">Researched, written &amp; illustrated by PulseAI</span></header>
 <main class="feed"><h1 class="feed-title">Latest posts</h1>
 ${cards}
@@ -151,7 +160,7 @@ export function renderPostHtml(p: PostMeta, bodyHtml: string): string {
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(p.title)} — PulseAI</title><link rel="stylesheet" href="../style.css">
 </head><body>
-<header class="site-head"><a class="brand" href="../index.html">Pulse<span class="dot">AI</span></a></header>
+<header class="site-head"><a class="brand" href="../index.html">${LOGO}</a></header>
 <article class="post">
   <a class="back" href="../index.html">← All posts</a>
   <h1 class="post-title">${esc(p.title)}</h1>

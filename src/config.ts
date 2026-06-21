@@ -33,6 +33,15 @@ export const config = {
     url: process.env.OLLAMA_URL ?? "http://localhost:11434",
     model: process.env.OLLAMA_MODEL ?? "llama3.1:8b",
   },
+
+  // --- LinkedIn auto-posting (official API, w_member_social) ---
+  linkedin: {
+    clientId: process.env.LINKEDIN_CLIENT_ID ?? "",
+    clientSecret: process.env.LINKEDIN_CLIENT_SECRET ?? "",
+    redirectUri: process.env.LINKEDIN_REDIRECT_URI ?? "http://localhost:5555/callback",
+    accessToken: process.env.LINKEDIN_ACCESS_TOKEN ?? "",
+    authorUrn: process.env.LINKEDIN_AUTHOR_URN ?? "",
+  },
 } as const;
 
 export type Config = typeof config;

@@ -1,0 +1,18 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="55%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="300" rx="64" fill="url(#bg)"/>
+  <!-- pulse / signal waveform -->
+  <path d="M42,130 H102 L120,130 L137,76 L156,194 L173,108 L190,130 H258"
+        fill="none" stroke="#ffffff" stroke-width="12"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="258" cy="130" r="10" fill="#ffffff"/>
+  <!-- wordmark -->
+  <text x="150" y="238" text-anchor="middle" font-family="Arial, Segoe UI, sans-serif"
+        font-size="49" font-weight="800" fill="#ffffff" letter-spacing="-1.5">Pulse<tspan fill="#a7f3d0">AI</tspan></text>
+</svg>

@@ -17,3 +17,5 @@ searxng-config/
 
 # throwaway probes
 probe-*.mjs
+
+.vercel
