@@ -1,0 +1,61 @@
+{
+  "topic": "AI agent loops and self-improving agent design best practices",
+  "mode": "content",
+  "createdAt": "2026-06-21T16:43:24.431Z",
+  "finalScore": 78,
+  "sourceCount": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "queries": [
+        "AI agent loops architecture planning act observe reflection retry best practices",
+        "self-improving AI agents design patterns memory feedback evaluation reward hacking safeguards",
+        "LLM autonomous agent failure modes infinite loops tool misuse hallucinations monitoring guardrails",
+        "benchmarking and evaluating AI agents loop performance task success latency cost reliability framework",
+        "case studies and research on iterative AI agents reflection critics self-correction multi-agent best practices"
+      ],
+      "found": 147,
+      "rejected": 3,
+      "score": 78,
+      "breakdown": {
+        "sourceQuality": 88,
+        "diversity": 60,
+        "coverage": 76,
+        "recency": 84,
+        "researchScore": 78,
+        "perQuery": [
+          {
+            "query": "AI agent loops architecture planning act observe reflection retry best practices",
+            "answered": true,
+            "strength": 82
+          },
+          {
+            "query": "self-improving AI agents design patterns memory feedback evaluation reward hacking safeguards",
+            "answered": false,
+            "strength": 55
+          },
+          {
+            "query": "LLM autonomous agent failure modes infinite loops tool misuse hallucinations monitoring guardrails",
+            "answered": true,
+            "strength": 88
+          },
+          {
+            "query": "benchmarking and evaluating AI agents loop performance task success latency cost reliability framework",
+            "answered": true,
+            "strength": 84
+          },
+          {
+            "query": "case studies and research on iterative AI agents reflection critics self-correction multi-agent best practices",
+            "answered": true,
+            "strength": 72
+          }
+        ],
+        "weakest": "diversity"
+      },
+      "decision": {
+        "stop": true,
+        "reason": "score 78 ≥ target 75"
+      }
+    }
+  ]
+}

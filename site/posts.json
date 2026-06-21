@@ -1,0 +1,18 @@
+[
+  {
+    "id": "2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2",
+    "slug": "2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2",
+    "title": "What Is a Loop in AI Agents, How Do You Create a Good One, and What Are the Best Practices?",
+    "image": "2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2-flowchart.png",
+    "excerpt": "If an agent only generates once, it is not running a loop. It is taking a single shot.",
+    "publishedAt": "2026-06-21T18:33:13.271Z"
+  },
+  {
+    "id": "2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3",
+    "slug": "2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3",
+    "title": "What AI Automation Is — and How to Use It Efficiently",
+    "image": "2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3-image.png",
+    "excerpt": "AI automation is a workflow that uses AI inside a controlled process to move work toward a defined outcome .",
+    "publishedAt": "2026-06-21T18:33:13.480Z"
+  }
+]

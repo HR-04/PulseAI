@@ -1,0 +1,56 @@
+{
+  "intent": "what is a loop, how to create a good loop, and loop creation best practices",
+  "sourceNotebook": "output/notebook/2026-06-21-how-to-design-and-build-good-ai-agent-loops-stopping-criteri.json",
+  "content": {
+    "onTopic": 72,
+    "value": 78,
+    "grounding": 58,
+    "structure": 86,
+    "voice": 84,
+    "overall": 73,
+    "weakest": "grounding",
+    "critique": "1) Tighten intent alignment first. The draft answers 'what is a loop' and 'how to build one' well, but it narrows the topic to AI-agent orchestration almost immediately. If the search intent is broader, open with a plain-English definition of a loop first, then distinguish programming loops, workflow loops, and agent loops in one short section before committing to the agent-specific angle. 2) Improve grounding aggressively. Several claims sound more precise than the visible source set safely supports, especially the quantitative result about silent failures reaching 0.0% and some policy/verification conclusions attributed to [S2] and [S6]. Either quote exact findings more carefully, reduce precision, or add direct source-backed wording. Right now the article sometimes reads more certain than the citations justify. 3) Cut architecture-adjacent drift. Sections on execution boundaries, signed intents, governance, and contracts are useful, but they start to feel like adjacent agent-systems design rather than core loop creation advice. Compress them and keep the center of gravity on loop mechanics: iteration unit, validation, stop conditions, recovery, and observability. 4) Add one simpler 'how to create a good loop' example. The customer-record example is solid, but a minimal 5-step template or pseudocode snippet would make the advice more immediately actionable. 5) Sharpen best-practice prioritization. The list is good but long. Re-rank into must-have vs nice-to-have so readers leave with a clear hierarchy instead of an exhaustive catalog."
+  },
+  "overallHistory": [
+    73,
+    59
+  ],
+  "rounds": 2,
+  "flowchartSpec": {
+    "title": "Good Loop Anatomy",
+    "stages": [
+      {
+        "title": "Set Goal",
+        "sub": "clear target, success mark"
+      },
+      {
+        "title": "Take Action",
+        "sub": "small, focused step"
+      },
+      {
+        "title": "Measure Result",
+        "sub": "track key signal"
+      },
+      {
+        "title": "Assess Fit",
+        "sub": "good enough to proceed?"
+      },
+      {
+        "title": "Exit / Commit",
+        "sub": "ship, save, or stop"
+      }
+    ],
+    "stops": [
+      "goal reached",
+      "no progress",
+      "limit hit"
+    ],
+    "feedback": "refine and repeat"
+  },
+  "files": {
+    "blogFile": "output/drafts/2026-06-21-how-to-design-and-build-good-ai-agent-loops-stopping-criteri-v2-blog.md",
+    "liFile": "output/drafts/2026-06-21-how-to-design-and-build-good-ai-agent-loops-stopping-criteri-v2-linkedin.md",
+    "svgFile": "output/drafts/2026-06-21-how-to-design-and-build-good-ai-agent-loops-stopping-criteri-v2-flowchart.svg",
+    "pngFile": "output/drafts/2026-06-21-how-to-design-and-build-good-ai-agent-loops-stopping-criteri-v2-flowchart.png"
+  }
+}

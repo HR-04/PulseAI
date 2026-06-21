@@ -1,0 +1,56 @@
+{
+  "intent": "what is a loop, how to create a good loop, and loop creation best practices",
+  "sourceNotebook": "output/notebook/2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice.json",
+  "content": {
+    "onTopic": 93,
+    "value": 91,
+    "grounding": 74,
+    "structure": 89,
+    "voice": 87,
+    "overall": 88,
+    "weakest": "grounding",
+    "critique": "1) Tighten grounding first. Several operational claims are presented as defaults or near-rules without clear source support: '6–8 iterations,' 'retry once,' 'retry at most twice,' 'no progress for 2 consecutive iterations,' and 'bounded iteration with feedback' as the key definition of a good loop. Either cite a source that actually supports these prescriptions or label them explicitly as house heuristics/recommended defaults. Right now the sourced conceptual material is stronger than the sourced prescriptive material. 2) Distinguish sourced claims from your own guidance. The article cleanly uses [S4] for Thought→Action→Observation, but it blurs into unsupported guidance when it moves from 'what a loop is' to 'best practices.' Add brief signals like 'in practice, a sensible default is...' versus implying the literature established those exact thresholds. 3) Improve source precision. [S1] and [S2] are used repeatedly as catch-all support for planning, tool use, memory, changing state, and multi-step behavior. That is directionally plausible, but too broad. Quote or paraphrase more narrowly, or reduce citation spread where the claim is simply your own synthesis. 4) Clean up formatting noise. The draft includes malformed code fences ('text', 'python', 'json' shown inline) and long checklist-heavy sections that slightly bloat the middle. Fix the formatting and trim 10-15% of repetitive material, especially where 'stop rules,' 'no progress,' and 'structured observations' are restated. 5) Sharpen the opening hook. The lead is clear but a bit dry. A stronger opening contrast—'Most bad agents do not fail because they lack intelligence; they fail because their loop has no control'—would better match the confident, editor-grade tone of the rest. 6) Add one fully worked example from start to stop. The payroll example is useful, but still schematic. One concrete example with exact state changes, observation fields, and stop reason would increase practical value further."
+  },
+  "overallHistory": [
+    85,
+    88
+  ],
+  "rounds": 2,
+  "flowchartSpec": {
+    "title": "Good Loop Anatomy",
+    "stages": [
+      {
+        "title": "Set Target",
+        "sub": "Clear, measurable outcome"
+      },
+      {
+        "title": "Take Action",
+        "sub": "Run one focused step"
+      },
+      {
+        "title": "Measure Result",
+        "sub": "Track key signal"
+      },
+      {
+        "title": "Assess Fit",
+        "sub": "Keep, change, or stop"
+      },
+      {
+        "title": "Commit Exit",
+        "sub": "Ship, save, or end"
+      }
+    ],
+    "stops": [
+      "Goal reached",
+      "No progress",
+      "Cost too high"
+    ],
+    "feedback": "Adjust and retry"
+  },
+  "files": {
+    "blogFile": "output/drafts/2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2-blog.md",
+    "liFile": "output/drafts/2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2-linkedin.md",
+    "svgFile": "output/drafts/2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2-flowchart.svg",
+    "pngFile": "output/drafts/2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2-flowchart.png"
+  }
+}

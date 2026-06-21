@@ -1,0 +1,37 @@
+<svg viewBox="0 0 780 620" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+    <marker id="arA" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#d97706"/></marker>
+    <style>
+      .lbl{font-size:14px;fill:#0f172a;font-weight:600}
+      .sub{font-size:11px;fill:#475569}
+      .edge{stroke:#475569;stroke-width:1.7;fill:none;marker-end:url(#ar)}
+      .loop{stroke:#d97706;stroke-width:2;fill:none;stroke-dasharray:6 4;marker-end:url(#arA)}
+      .tag{font-size:11px;font-weight:700;letter-spacing:.4px}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="780" height="620" fill="#ffffff"/>
+  <text x="390" y="32" text-anchor="middle" font-size="20" font-weight="800" fill="#0f172a">Good Loop Anatomy</text>
+  <text x="390" y="52" text-anchor="middle" class="sub">act → measure → assess → refine, with a defined way out</text>
+  <rect x="270" y="74" width="220" height="58" rx="11" fill="#eef2ff" stroke="#6366f1" stroke-width="1.7"/><text x="380" y="99" text-anchor="middle" class="lbl">Set Target</text><text x="380" y="117" text-anchor="middle" class="sub">Clear, measurable outcome</text>
+  <rect x="270" y="166" width="220" height="58" rx="11" fill="#ecfeff" stroke="#0891b2" stroke-width="1.7"/><text x="380" y="191" text-anchor="middle" class="lbl">Take Action</text><text x="380" y="209" text-anchor="middle" class="sub">Run one focused step</text>
+  <rect x="270" y="258" width="220" height="58" rx="11" fill="#faf5ff" stroke="#9333ea" stroke-width="1.7"/><text x="380" y="283" text-anchor="middle" class="lbl">Measure Result</text><text x="380" y="301" text-anchor="middle" class="sub">Track key signal</text>
+  <polygon points="380,338 500,398 380,458 260,398" fill="#fff7ed" stroke="#d97706" stroke-width="1.8"/>
+  <text x="380" y="393" text-anchor="middle" class="lbl">Assess Fit</text>
+  <text x="380" y="411" text-anchor="middle" class="sub">Keep, change, or stop</text>
+  <rect x="270" y="494" width="220" height="58" rx="11" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.7"/><text x="380" y="519" text-anchor="middle" class="lbl">Commit Exit</text><text x="380" y="537" text-anchor="middle" class="sub">Ship, save, or end</text>
+  <path class="edge" d="M380,132 L380,166"/>
+  <path class="edge" d="M380,224 L380,258"/>
+  <path class="edge" d="M380,316 L380,338"/>
+  <path class="edge" d="M380,458 L380,494"/>
+  <text x="398" y="482" class="tag" fill="#16a34a">YES</text>
+  <path class="loop" d="M260,398 C150,398 150,195 270,195"/>
+  <text x="118" y="300" class="tag" fill="#d97706" text-anchor="middle" transform="rotate(-90 118 300)">NO · Adjust and retry</text>
+  <rect x="530" y="344" width="234" height="110" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="544" y="367" class="tag" fill="#dc2626">STOP WHEN ANY:</text>
+  <text x="544" y="389" class="sub">• Goal reached</text>
+  <text x="544" y="411" class="sub">• No progress</text>
+  <text x="544" y="433" class="sub">• Cost too high</text>
+  <path class="edge" d="M500,398 L530,399" stroke-dasharray="3 3"/>
+  <text x="390" y="600" text-anchor="middle" class="sub">The dashed path makes it a loop. The red box makes it safe.</text>
+</svg>

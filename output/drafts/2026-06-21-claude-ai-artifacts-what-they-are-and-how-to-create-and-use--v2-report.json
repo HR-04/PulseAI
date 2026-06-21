@@ -1,0 +1,56 @@
+{
+  "intent": "what is a Claude artifact and how do you create and use them",
+  "sourceNotebook": "output/notebook/2026-06-21-claude-ai-artifacts-what-they-are-and-how-to-create-and-use-.json",
+  "content": {
+    "onTopic": 72,
+    "value": 78,
+    "grounding": 34,
+    "structure": 84,
+    "voice": 81,
+    "overall": 68,
+    "weakest": "grounding",
+    "critique": "1) Fix grounding first. The draft defines 'artifact' as any concrete deliverable Claude generates, but the cited source list does not clearly support that definition. You are inferring from general workflow/materials on plans, projects, harnesses, and orchestration. Either add sources explicitly about Anthropic Artifacts/UI behavior or sharply narrow claims to what the sources actually show. 2) Cut source-backed-but-off-intent material. Repeated references to loops, harnesses, orchestration, autonomous execution, and Orrery consume too much space for a reader who asked about artifacts. Keep only what directly improves artifact creation/use. 3) Answer the product question more precisely. Readers likely mean Anthropic's Artifacts feature, not a generic 'working deliverable.' The draft avoids overclaiming UI details, which is good, but that leaves the core term underdefined. State clearly whether you are describing the official feature or using 'artifact' in a broader workflow sense. Right now it blurs both. 4) Make creation steps more Claude-specific. The prompting advice is decent but generic and would apply to almost any LLM. Add specifics about how artifacts are opened, revised, reused, shared, or turned into different output forms—if and only if you have support. 5) Tighten redundancy. The same distinction between chat reply vs artifact and process vs deliverable appears too many times. Compress and use the saved space for one concrete end-to-end example that shows create -> revise -> use. 6) Improve search-intent precision in the headline and intro. The intro says readers do not need agent orchestration, but the body keeps returning to it. Align the body with the promise."
+  },
+  "overallHistory": [
+    30,
+    68
+  ],
+  "rounds": 2,
+  "flowchartSpec": {
+    "title": "Claude Artifacts Workflow",
+    "subtitle": "Create, view, refine, and reuse",
+    "steps": [
+      {
+        "title": "Know Artifacts",
+        "sub": "Interactive outputs Claude builds"
+      },
+      {
+        "title": "Ask Claude",
+        "sub": "Request a page, chart, or app"
+      },
+      {
+        "title": "Review Artifact",
+        "sub": "Open and inspect the result"
+      },
+      {
+        "title": "Refine Prompt",
+        "sub": "Request edits or added features"
+      },
+      {
+        "title": "Use or Share",
+        "sub": "Reuse, copy, or present it"
+      }
+    ],
+    "feedback": {
+      "from": 4,
+      "to": 2,
+      "label": "iterate"
+    }
+  },
+  "files": {
+    "blogFile": "output/drafts/2026-06-21-claude-ai-artifacts-what-they-are-and-how-to-create-and-use--v2-blog.md",
+    "liFile": "output/drafts/2026-06-21-claude-ai-artifacts-what-they-are-and-how-to-create-and-use--v2-linkedin.md",
+    "svgFile": "output/drafts/2026-06-21-claude-ai-artifacts-what-they-are-and-how-to-create-and-use--v2-flowchart.svg",
+    "pngFile": "output/drafts/2026-06-21-claude-ai-artifacts-what-they-are-and-how-to-create-and-use--v2-flowchart.png"
+  }
+}

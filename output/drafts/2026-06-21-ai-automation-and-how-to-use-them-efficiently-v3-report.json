@@ -1,0 +1,28 @@
+{
+  "intent": "what AI automation is and how to use it efficiently",
+  "sourceNotebook": "output/notebook/2026-06-21-ai-automation-and-how-to-use-them-efficiently.json",
+  "content": {
+    "onTopic": 88,
+    "value": 86,
+    "grounding": 74,
+    "structure": 91,
+    "voice": 84,
+    "overall": 85,
+    "weakest": "grounding",
+    "critique": "1) Fix grounding first. Too many key claims rest on thin or mismatched evidence: Show HN pages and product descriptions [S1][S2][S3] are being used to support broad best-practice statements about AI automation design. Tighten every claim to what the source actually demonstrates, or replace weak citations with stronger evidence. The LTP mention is handled cautiously, but it still leans on a niche source for a general efficiency principle; either substantiate that principle better or cut the citation. 2) Improve intent precision. The draft is mostly on-target, but the opening spends too much space defining neighboring concepts like autonomous agents. That contrast is useful once, briefly; here it starts to feel like taxonomy. Compress the 'nearby ideas' section and move faster into the core reader question: what AI automation is, when to use it, and exactly how to design an efficient loop. 3) Add one sharper, concrete build example earlier. The GitHub issue triage example is good, but it comes too late. Put a compact real-world example near the top so the abstraction is anchored immediately. 4) Strengthen evidence-backed efficiency guidance. The KPI section is sensible, but mostly asserted. Tie at least some metrics or design decisions more directly to source-backed operational realities rather than editorially plausible advice. 5) Tighten repetition. The piece re-states the same idea—bounded loop, filters, validation, stop conditions—several times. Merge overlapping sections so each one adds something new. 6) Upgrade voice from solid to authoritative. The tone is clear and confident, but it sometimes reads like a careful synthesis memo. Sharpen sentences, cut hedging-by-citation, and lead with stronger editorial judgments grounded in the evidence."
+  },
+  "overallHistory": [
+    80,
+    85
+  ],
+  "rounds": 2,
+  "image": {
+    "url": "https://appcentral-int.aptean.com/ais/api/v1/secure/documents/ea5ed76a-4374-4993-99f4-482cd4d46a2d/download",
+    "localPath": "output/drafts/2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3-image.png"
+  },
+  "files": {
+    "blogFile": "output/drafts/2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3-blog.md",
+    "liFile": "output/drafts/2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3-linkedin.txt",
+    "imagePath": "output/drafts/2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3-image.png"
+  }
+}

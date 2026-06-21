@@ -1,0 +1,33 @@
+{
+  "name": "pulseai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Self-improving research agent (Aptean Intelligence Studio model backend).",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test:llm": "node --env-file=.env --import tsx src/llmCheck.ts",
+    "test:search": "node --env-file=.env --import tsx src/searchCheck.ts",
+    "research": "node --env-file=.env --import tsx src/researchAgent.ts",
+    "generate": "node --env-file=.env --import tsx src/generate.ts",
+    "generate:pro": "node --env-file=.env --import tsx src/generatePro.ts",
+    "publish": "node --import tsx src/site/publishCli.ts",
+    "serve": "node --import tsx src/site/serve.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/jsdom": "^28.0.3",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "fast-xml-parser": "^5.9.3",
+    "jsdom": "^29.1.1",
+    "marked": "^18.0.5"
+  }
+}

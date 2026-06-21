@@ -1,0 +1,101 @@
+{
+  "topic": "What are Artifacts in the Claude app and how do I use them: create, edit, preview, publish and share artifacts",
+  "mode": "content",
+  "createdAt": "2026-06-21T18:06:58.115Z",
+  "finalScore": 50,
+  "sourceCount": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "queries": [
+        "Claude app Artifacts overview what Artifacts are and when Claude creates them official help docs",
+        "Claude app create and edit Artifacts how to generate modify and iterate on an Artifact",
+        "Claude app Artifact preview and interactive use how to open run and view Artifact output",
+        "Claude app publish and share Artifacts how public sharing links publishing and access permissions work",
+        "Claude app Artifact supported content types examples limitations and best practices for using Artifacts"
+      ],
+      "found": 148,
+      "rejected": 15,
+      "score": 51,
+      "breakdown": {
+        "sourceQuality": 81,
+        "diversity": 56,
+        "coverage": 7,
+        "recency": 91,
+        "researchScore": 51,
+        "perQuery": [
+          {
+            "query": "Claude app Artifacts overview what Artifacts are and when Claude creates them official help docs",
+            "answered": false,
+            "strength": 12
+          },
+          {
+            "query": "Claude app create and edit Artifacts how to generate modify and iterate on an Artifact",
+            "answered": false,
+            "strength": 6
+          },
+          {
+            "query": "Claude app Artifact preview and interactive use how to open run and view Artifact output",
+            "answered": false,
+            "strength": 10
+          },
+          {
+            "query": "Claude app publish and share Artifacts how public sharing links publishing and access permissions work",
+            "answered": false,
+            "strength": 1
+          },
+          {
+            "query": "Claude app Artifact supported content types examples limitations and best practices for using Artifacts",
+            "answered": false,
+            "strength": 8
+          }
+        ],
+        "weakest": "coverage"
+      },
+      "decision": {
+        "stop": false,
+        "reason": "score 51 < target 75; refine & continue"
+      }
+    },
+    {
+      "round": 2,
+      "queries": [
+        "site:support.anthropic.com Claude app Artifacts FAQ troubleshooting permissions updates version history collaboration export embed official",
+        "site:docs.anthropic.com OR site:support.anthropic.com Claude Artifacts markdown code documents apps data visualizations supported formats limits rendering security official",
+        "site:support.anthropic.com Claude app share Artifact public link revoke access duplicate remix save to project mobile desktop official"
+      ],
+      "found": 21,
+      "rejected": 0,
+      "score": 50,
+      "breakdown": {
+        "sourceQuality": 81,
+        "diversity": 56,
+        "coverage": 4,
+        "recency": 91,
+        "researchScore": 50,
+        "perQuery": [
+          {
+            "query": "site:support.anthropic.com Claude app Artifacts FAQ troubleshooting permissions updates version history collaboration export embed official",
+            "answered": false,
+            "strength": 4
+          },
+          {
+            "query": "site:docs.anthropic.com OR site:support.anthropic.com Claude Artifacts markdown code documents apps data visualizations supported formats limits rendering security official",
+            "answered": false,
+            "strength": 6
+          },
+          {
+            "query": "site:support.anthropic.com Claude app share Artifact public link revoke access duplicate remix save to project mobile desktop official",
+            "answered": false,
+            "strength": 3
+          }
+        ],
+        "weakest": "coverage"
+      },
+      "decision": {
+        "stop": true,
+        "reason": "plateau: gain -1 < MIN_GAIN 5"
+      }
+    }
+  ]
+}

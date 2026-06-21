@@ -1,0 +1,19 @@
+# secrets — NEVER commit
+.env
+.env.*.local
+
+# dependencies & build output
+node_modules/
+dist/
+*.tsbuildinfo
+
+# caches & logs
+.cache/
+*.log
+
+# local tooling / regenerable infra
+.claude/
+searxng-config/
+
+# throwaway probes
+probe-*.mjs

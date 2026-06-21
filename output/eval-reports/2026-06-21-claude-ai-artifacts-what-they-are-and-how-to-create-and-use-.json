@@ -1,0 +1,101 @@
+{
+  "topic": "Claude AI Artifacts: what they are and how to create and use them",
+  "mode": "content",
+  "createdAt": "2026-06-21T17:58:54.456Z",
+  "finalScore": 57,
+  "sourceCount": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "queries": [
+        "Claude AI Artifacts overview: what Artifacts are, key features, supported content types, and how they work in Claude",
+        "How to create Claude Artifacts step by step: prompts, workflow, requirements, and best practices for generating an Artifact",
+        "How to use and interact with Claude Artifacts: editing, iterating, sharing, previewing, and collaborating with generated content",
+        "Claude Artifacts use cases and examples: apps, dashboards, documents, visualizations, educational tools, and business workflows",
+        "Claude Artifacts limitations, pricing, availability, and differences from regular Claude chat responses or other AI workspace features"
+      ],
+      "found": 156,
+      "rejected": 19,
+      "score": 67,
+      "breakdown": {
+        "sourceQuality": 81,
+        "diversity": 56,
+        "coverage": 52,
+        "recency": 89,
+        "researchScore": 67,
+        "perQuery": [
+          {
+            "query": "Claude AI Artifacts overview: what Artifacts are, key features, supported content types, and how they work in Claude",
+            "answered": true,
+            "strength": 72
+          },
+          {
+            "query": "How to create Claude Artifacts step by step: prompts, workflow, requirements, and best practices for generating an Artifact",
+            "answered": false,
+            "strength": 38
+          },
+          {
+            "query": "How to use and interact with Claude Artifacts: editing, iterating, sharing, previewing, and collaborating with generated content",
+            "answered": true,
+            "strength": 63
+          },
+          {
+            "query": "Claude Artifacts use cases and examples: apps, dashboards, documents, visualizations, educational tools, and business workflows",
+            "answered": true,
+            "strength": 58
+          },
+          {
+            "query": "Claude Artifacts limitations, pricing, availability, and differences from regular Claude chat responses or other AI workspace features",
+            "answered": false,
+            "strength": 27
+          }
+        ],
+        "weakest": "coverage"
+      },
+      "decision": {
+        "stop": false,
+        "reason": "score 67 < target 75; refine & continue"
+      }
+    },
+    {
+      "round": 2,
+      "queries": [
+        "How to create Claude Artifacts step by step: exact prompt patterns, setup requirements, workflow from idea to generated Artifact, and best practices for reliable results",
+        "Claude Artifacts limitations and constraints: supported plans, regional/device availability, file and content restrictions, model/tool limitations, and common failure cases",
+        "Claude Artifacts vs regular Claude responses and other AI workspace/canvas features: pricing, access, capabilities, sharing, editing, persistence, and when to use each"
+      ],
+      "found": 85,
+      "rejected": 5,
+      "score": 57,
+      "breakdown": {
+        "sourceQuality": 85,
+        "diversity": 60,
+        "coverage": 17,
+        "recency": 87,
+        "researchScore": 57,
+        "perQuery": [
+          {
+            "query": "How to create Claude Artifacts step by step: exact prompt patterns, setup requirements, workflow from idea to generated Artifact, and best practices for reliable results",
+            "answered": false,
+            "strength": 28
+          },
+          {
+            "query": "Claude Artifacts limitations and constraints: supported plans, regional/device availability, file and content restrictions, model/tool limitations, and common failure cases",
+            "answered": false,
+            "strength": 10
+          },
+          {
+            "query": "Claude Artifacts vs regular Claude responses and other AI workspace/canvas features: pricing, access, capabilities, sharing, editing, persistence, and when to use each",
+            "answered": false,
+            "strength": 14
+          }
+        ],
+        "weakest": "coverage"
+      },
+      "decision": {
+        "stop": true,
+        "reason": "plateau: gain -10 < MIN_GAIN 5"
+      }
+    }
+  ]
+}

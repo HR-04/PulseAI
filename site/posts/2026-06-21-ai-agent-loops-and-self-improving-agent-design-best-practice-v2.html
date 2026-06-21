@@ -1,0 +1,472 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What Is a Loop in AI Agents, How Do You Create a Good One, and What Are the Best Practices? — PulseAI</title><link rel="stylesheet" href="../style.css">
+</head><body>
+<header class="site-head"><a class="brand" href="../index.html">Pulse<span class="dot">AI</span></a></header>
+<article class="post">
+  <a class="back" href="../index.html">← All posts</a>
+  <h1 class="post-title">What Is a Loop in AI Agents, How Do You Create a Good One, and What Are the Best Practices?</h1>
+  <div class="post-meta">Posted June 22, 2026 · 12:03 AM</div>
+  <img class="hero" src="../assets/2026-06-21-ai-agent-loops-and-self-improving-agent-design-best-practice-v2-flowchart.png" alt="What Is a Loop in AI Agents, How Do You Create a Good One, and What Are the Best Practices?">
+  <div class="post-body"><p>If an agent only generates once, it is not running a loop. It is taking a single shot.</p>
+<p>A <strong>loop</strong> is the repeated control cycle that lets an agent <strong>choose a step, take that step, inspect the result, and decide what to do next</strong>. In agent workflows, that pattern is often expressed as <strong>Thought → Action → Observation</strong>, repeated until the task is complete or the system stops [S4]. That structure matters because many agent tasks depend on tool results, intermediate decisions, and changing state rather than on the initial prompt alone [S1][S2].</p>
+<p>A good loop is not “more reasoning.” It is <strong>bounded iteration with feedback</strong>.</p>
+<h2>What a loop is</h2>
+<p>At runtime, a loop usually does six things:</p>
+<ol>
+<li><strong>Read the goal</strong></li>
+<li><strong>Select the next action</strong></li>
+<li><strong>Execute one bounded step</strong></li>
+<li><strong>Observe the result</strong></li>
+<li><strong>Update the working state</strong></li>
+<li><strong>Stop or continue</strong> [S4]</li>
+</ol>
+<p>That is the difference between a responder and an agent. Agent systems are useful when they can combine planning, tool use, memory, and interaction across multiple steps instead of betting everything on the first output [S1][S2].</p>
+<h2>Why one-shot breaks down</h2>
+<p>One-shot generation works for direct questions. It breaks on tasks where the answer depends on what happens during execution.</p>
+<p>Typical cases:</p>
+<ul>
+<li><strong>The agent needs tool results before it can finish.</strong> Search, retrieval, APIs, and code execution produce information that does not exist in the prompt at the start [S1].</li>
+<li><strong>The task has intermediate decisions.</strong> Multi-step work requires choosing what to do after each result, not only producing a polished final answer [S1][S2].</li>
+<li><strong>The environment can change.</strong> In interactive settings, the next step depends on the latest observation, not on a fixed plan made upfront [S2][S4].</li>
+</ul>
+<p>A simple example:</p>
+<ul>
+<li><strong>One-shot:</strong> “Book the cheapest flight.”</li>
+<li><strong>Loop:</strong>  <ol>
+<li>Ask for missing constraints  </li>
+<li>Search flights  </li>
+<li>Notice no acceptable option from the preferred airport  </li>
+<li>Expand to nearby airports  </li>
+<li>Re-rank results by total cost and timing  </li>
+<li>Return the best options</li>
+</ol>
+</li>
+</ul>
+<p>The point is not extra chatter. The point is <strong>course correction</strong>.</p>
+<hr>
+<h2>How to create a good loop</h2>
+<p>A strong loop has four properties:</p>
+<ul>
+<li>a <strong>clear target</strong></li>
+<li>a <strong>small, explicit state</strong></li>
+<li><strong>decision-ready observations</strong></li>
+<li><strong>hard stop rules</strong></li>
+</ul>
+<p>Everything else is secondary.</p>
+<h3>1) Define success before the first iteration</h3>
+<p>Do not start with “help me research” or “figure this out.”</p>
+<p>Start with a completion rule.</p>
+<p>Bad:</p>
+<ul>
+<li>“Help with research”</li>
+</ul>
+<p>Good:</p>
+<ul>
+<li>“Return 3 vendors with pricing evidence, source links, and a recommendation”</li>
+<li>“Fix the failing test and show the diff”</li>
+<li>“Answer the policy question and cite the relevant section”</li>
+</ul>
+<p>If “done” is vague, the loop wanders.</p>
+<h3>2) Keep loop state small and explicit</h3>
+<p>A loop should not drag an entire transcript around as its working memory. It should carry only what the next iteration needs.</p>
+<p>Minimum state:</p>
+<ul>
+<li><strong>goal</strong></li>
+<li><strong>success criteria</strong></li>
+<li><strong>current subtask</strong></li>
+<li><strong>facts confirmed so far</strong></li>
+<li><strong>open questions / blockers</strong></li>
+<li><strong>constraints</strong></li>
+<li><strong>iteration count</strong></li>
+<li><strong>retry count</strong></li>
+<li><strong>budget left</strong></li>
+<li><strong>status</strong></li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-yaml">goal: &quot;Find 3 payroll software options for a 200-person manufacturer&quot;
+success_criteria:
+  - 3 relevant vendors
+  - pricing evidence for each
+  - recommendation with rationale
+constraints:
+  - max_iterations: 8
+  - max_tool_calls: 12
+  - ask_user_if_required_input_missing: true
+current_subtask: &quot;find candidate vendors&quot;
+facts: []
+blockers: []
+iteration: 1
+retries_for_current_step: 0
+status: &quot;running&quot;
+</code></pre>
+<h3>3) Make each iteration do one bounded thing</h3>
+<p>The fastest way to ruin a loop is to let one step plan, search, compare, verify, and conclude all at once.</p>
+<p>Each iteration should answer three questions:</p>
+<ol>
+<li><strong>What do I know now?</strong></li>
+<li><strong>What is the best next step?</strong></li>
+<li><strong>What result would count as progress?</strong></li>
+</ol>
+<p>Use a tight structure:</p>
+<pre><code class="language-text">THINK: choose the next subtask
+ACT: take one bounded action
+OBSERVE: summarize what changed
+DECIDE: continue, re-plan, ask the user, or stop
+</code></pre>
+<p>That keeps the loop debuggable and aligned with the Thought → Action → Observation pattern [S4].</p>
+<h3>4) Turn raw results into usable observations</h3>
+<p>A loop improves only when its observations are usable for the next decision.</p>
+<p>Bad observation:</p>
+<ul>
+<li>“Search returned results”</li>
+</ul>
+<p>Good observation:</p>
+<ul>
+<li>“Search returned 7 results; 4 are irrelevant, 2 are vendor pricing pages, 1 is a comparison article. We have pricing evidence for Vendor A and Vendor B, but still need a third qualified option.”</li>
+</ul>
+<p>That kind of observation is useful because it tells the loop what changed and what remains.</p>
+<h3>5) Re-plan instead of blindly retrying</h3>
+<p>A loop should not keep repeating the same failed action unless something material changes.</p>
+<p>Good rule set:</p>
+<ul>
+<li><strong>Retry once</strong> for a likely transient failure</li>
+<li><strong>Retry at most twice</strong> if you can change parameters</li>
+<li><strong>Switch strategy after 2 failed attempts</strong></li>
+<li><strong>Ask the user</strong> if the blocker is missing input, missing credentials, or a decision only the user can make</li>
+<li><strong>Stop</strong> if the action cannot succeed within policy, budget, or available tools</li>
+</ul>
+<p>That is a practical default, not a law. But it is a much better starting point than unlimited retries.</p>
+<h3>6) Add hard stop conditions up front</h3>
+<p>A loop without stop conditions is not sophisticated. It is expensive.</p>
+<p>Use multiple stop rules, not just “task complete.”</p>
+<h4>Default stop conditions</h4>
+<ul>
+<li><strong>Success reached</strong></li>
+<li><strong>Max iterations hit</strong><br>Default: <strong>6–8 iterations</strong> for a standard business task</li>
+<li><strong>Max retries for the same subtask hit</strong><br>Default: <strong>2</strong></li>
+<li><strong>No progress for 2 consecutive iterations</strong></li>
+<li><strong>Required user input is missing</strong></li>
+<li><strong>Budget or latency cap reached</strong></li>
+<li><strong>Risk or confidence threshold says escalate</strong></li>
+</ul>
+<h4>What counts as “no progress”</h4>
+<p>Treat an iteration as <strong>no progress</strong> if none of these changed:</p>
+<ul>
+<li>no new fact was confirmed</li>
+<li>no blocker was removed</li>
+<li>no success criterion moved closer to completion</li>
+<li>no better next path was identified</li>
+</ul>
+<p>If that happens twice in a row, the loop should <strong>re-plan, ask the user, or stop</strong>.</p>
+<hr>
+<h2>A minimal loop you can actually build</h2>
+<p>Here is a simple loop skeleton with sensible defaults.</p>
+<pre><code class="language-python">state = {
+    &quot;goal&quot;: &quot;...&quot;,
+    &quot;success_criteria&quot;: [...],
+    &quot;facts&quot;: [],
+    &quot;blockers&quot;: [],
+    &quot;current_subtask&quot;: &quot;...&quot;,
+    &quot;iteration&quot;: 0,
+    &quot;max_iterations&quot;: 8,
+    &quot;same_step_retries&quot;: 0,
+    &quot;max_same_step_retries&quot;: 2,
+    &quot;no_progress_streak&quot;: 0,
+    &quot;max_no_progress_streak&quot;: 2,
+    &quot;status&quot;: &quot;running&quot;
+}
+
+while state[&quot;status&quot;] == &quot;running&quot;:
+    state[&quot;iteration&quot;] += 1
+
+    if state[&quot;iteration&quot;] &gt; state[&quot;max_iterations&quot;]:
+        state[&quot;status&quot;] = &quot;stopped_max_iterations&quot;
+        break
+
+    next_action = choose_next_action(state)
+    result = execute(next_action)
+    observation = summarize_result(result)
+
+    progressed = evaluate_progress(observation, state[&quot;success_criteria&quot;])
+
+    if progressed:
+        state[&quot;no_progress_streak&quot;] = 0
+        state[&quot;same_step_retries&quot;] = 0
+        update_state(state, observation)
+    else:
+        state[&quot;no_progress_streak&quot;] += 1
+
+        if observation[&quot;needs_user_input&quot;]:
+            state[&quot;status&quot;] = &quot;awaiting_user&quot;
+            break
+
+        if observation[&quot;retryable&quot;] and state[&quot;same_step_retries&quot;] &lt; state[&quot;max_same_step_retries&quot;]:
+            state[&quot;same_step_retries&quot;] += 1
+            adjust_parameters(state, observation)
+            continue
+
+        replan(state, observation)
+
+    if success_reached(state):
+        state[&quot;status&quot;] = &quot;completed&quot;
+        break
+
+    if state[&quot;no_progress_streak&quot;] &gt;= state[&quot;max_no_progress_streak&quot;]:
+        state[&quot;status&quot;] = &quot;stopped_no_progress&quot;
+        break
+</code></pre>
+<p>That is enough for many useful agent workflows. Start there before adding hierarchy, critics, or multi-agent orchestration.</p>
+<hr>
+<h2>Bad loop vs. good loop</h2>
+<p>The easiest way to understand loop quality is to compare failure and control.</p>
+<h3>Bad loop</h3>
+<p>Task: <strong>“Find three payroll software options with pricing evidence.”</strong></p>
+<p><strong>Iteration 1</strong></p>
+<ul>
+<li>Search for payroll software  </li>
+<li>Result: generic list article</li>
+</ul>
+<p><strong>Iteration 2</strong></p>
+<ul>
+<li>Search for payroll software again  </li>
+<li>Result: another generic list article</li>
+</ul>
+<p><strong>Iteration 3</strong></p>
+<ul>
+<li>Search for best payroll software pricing  </li>
+<li>Result: mixed blog posts</li>
+</ul>
+<p><strong>Iteration 4</strong></p>
+<ul>
+<li>Guess three vendors and write a recommendation</li>
+</ul>
+<p>Why this is bad:</p>
+<ul>
+<li>no explicit success criteria</li>
+<li>no definition of acceptable evidence</li>
+<li>repeated low-value search behavior</li>
+<li>no rule for replacing weak sources</li>
+<li>stops on a plausible answer, not a verified one</li>
+</ul>
+<h3>Good loop</h3>
+<p>Task: <strong>“Find three payroll software options for a 200-person manufacturer, include pricing evidence, and recommend one.”</strong></p>
+<p><strong>Iteration 1</strong></p>
+<ul>
+<li><strong>Subtask:</strong> find qualified candidates</li>
+<li><strong>Action:</strong> search for vendors relevant to mid-sized businesses and manufacturing needs</li>
+<li><strong>Observation:</strong> 5 potential vendors; 3 look relevant enough to verify</li>
+<li><strong>Decision:</strong> verify pricing evidence for those 3</li>
+</ul>
+<p><strong>Iteration 2</strong></p>
+<ul>
+<li><strong>Subtask:</strong> collect pricing evidence</li>
+<li><strong>Action:</strong> visit official pricing pages or equivalent primary sources</li>
+<li><strong>Observation:</strong> Vendor A has public pricing, Vendor B is quote-only, Vendor C has no pricing page</li>
+<li><strong>Decision:</strong> keep A and B, replace C unless stronger evidence appears</li>
+</ul>
+<p><strong>Iteration 3</strong></p>
+<ul>
+<li><strong>Subtask:</strong> replace weak candidate</li>
+<li><strong>Action:</strong> search for another relevant vendor with accessible pricing evidence</li>
+<li><strong>Observation:</strong> Vendor D qualifies and has published pricing</li>
+<li><strong>Decision:</strong> compare A, B, and D</li>
+</ul>
+<p><strong>Iteration 4</strong></p>
+<ul>
+<li><strong>Subtask:</strong> recommend</li>
+<li><strong>Action:</strong> score against user criteria</li>
+<li><strong>Observation:</strong> D fits best, A is cheaper, B lacks pricing transparency</li>
+<li><strong>Decision:</strong> recommend D, note caveats, stop</li>
+</ul>
+<p>Why this is good:</p>
+<ul>
+<li>success criteria were defined in advance</li>
+<li>every iteration had one purpose</li>
+<li>observations changed the next action</li>
+<li>weak evidence triggered replacement, not wishful thinking</li>
+<li>the loop stopped when the task was actually complete</li>
+</ul>
+<hr>
+<h2>Best practices for loop creation</h2>
+<h3>Keep the control policy simple</h3>
+<p>Start with:</p>
+<p><strong>plan → act → observe → decide</strong></p>
+<p>Do not begin with a sprawling architecture. Agent systems vary in complexity, but complexity is a choice, not a requirement [S2]. A clean single loop beats a clever tangled one.</p>
+<h3>Use concrete actions</h3>
+<p>A loop should produce inspectable steps:</p>
+<ul>
+<li>one search query</li>
+<li>one API call</li>
+<li>one retrieval step</li>
+<li>one code patch</li>
+<li>one clarification question</li>
+<li>one scoring pass</li>
+</ul>
+<p>Concrete actions are easier to verify, log, and debug.</p>
+<h3>Define acceptable evidence</h3>
+<p>Many loops fail because they never define what counts as a valid result.</p>
+<p>Examples:</p>
+<ul>
+<li>for research: official docs, vendor pricing pages, named primary sources</li>
+<li>for coding: passing tests, changed files, expected output</li>
+<li>for support: cited policy section, account status, approved action</li>
+</ul>
+<p>If evidence quality matters, encode it in the loop state.</p>
+<h3>Prefer structured observations over free-form summaries</h3>
+<p>Use fields like:</p>
+<pre><code class="language-json">{
+  &quot;action&quot;: &quot;verify_pricing&quot;,
+  &quot;result&quot;: &quot;partial_success&quot;,
+  &quot;facts_learned&quot;: [
+    &quot;Vendor A has public pricing&quot;,
+    &quot;Vendor B requires quote&quot;
+  ],
+  &quot;blockers&quot;: [
+    &quot;Vendor C has no accessible pricing page&quot;
+  ],
+  &quot;progress_made&quot;: true,
+  &quot;needs_user_input&quot;: false,
+  &quot;retryable&quot;: false,
+  &quot;recommended_next_action&quot;: &quot;replace_vendor_c&quot;
+}
+</code></pre>
+<p>Structured handoffs reduce ambiguity and make the next decision easier.</p>
+<h3>Separate doing from judging</h3>
+<p>Do not let the same step both perform work and declare victory without a check.</p>
+<p>Use this pattern:</p>
+<ol>
+<li>execute</li>
+<li>observe</li>
+<li>evaluate against success criteria</li>
+<li>accept, repair, or re-plan</li>
+</ol>
+<p>That discipline matters more than long reasoning.</p>
+<h3>Compress context aggressively</h3>
+<p>Keep:</p>
+<ul>
+<li>confirmed facts</li>
+<li>decisions made</li>
+<li>unresolved blockers</li>
+<li>artifacts that matter</li>
+</ul>
+<p>Drop:</p>
+<ul>
+<li>repeated internal deliberation</li>
+<li>stale branches</li>
+<li>old raw outputs once summarized</li>
+</ul>
+<p>Long transcripts are not a sign of quality. They are often a sign that the loop is losing control.</p>
+<h3>Ask the user at the right time</h3>
+<p>Do not ask the user too early. Do not wait too long either.</p>
+<p>Ask when:</p>
+<ul>
+<li>a required input is missing</li>
+<li>multiple valid paths depend on user preference</li>
+<li>credentials or permissions are required</li>
+<li>the loop hits a policy or risk boundary</li>
+<li>evidence is conflicting and the choice is consequential</li>
+</ul>
+<p>Default rule: <strong>if the blocker cannot be resolved with one more bounded action, ask the user instead of guessing</strong>.</p>
+<h3>Log every iteration</h3>
+<p>At minimum, log:</p>
+<ul>
+<li>iteration number</li>
+<li>current subtask</li>
+<li>action taken</li>
+<li>result status: success / partial / fail</li>
+<li>facts gained</li>
+<li>blockers found</li>
+<li>retry count</li>
+<li>no-progress streak</li>
+<li>latency / tool cost</li>
+<li>stop reason</li>
+</ul>
+<p>If you cannot explain why the loop stopped, you do not control the loop.</p>
+<hr>
+<h2>A practical stop-condition checklist</h2>
+<p>Use this checklist before shipping any agent loop.</p>
+<h3>The loop should stop when:</h3>
+<ul>
+<li><input disabled="" type="checkbox"> every success criterion is met</li>
+<li><input disabled="" type="checkbox"> the answer includes the required evidence</li>
+<li><input disabled="" type="checkbox"> max iterations is reached</li>
+<li><input disabled="" type="checkbox"> max retries for the same step is reached</li>
+<li><input disabled="" type="checkbox"> two consecutive iterations make no progress</li>
+<li><input disabled="" type="checkbox"> required user input is missing</li>
+<li><input disabled="" type="checkbox"> cost or latency cap is exceeded</li>
+<li><input disabled="" type="checkbox"> the task crosses a risk or approval boundary</li>
+</ul>
+<h3>Recommended defaults</h3>
+<ul>
+<li><strong>Max iterations:</strong> 6–8</li>
+<li><strong>Max retries for the same step:</strong> 2</li>
+<li><strong>No-progress threshold:</strong> 2 consecutive iterations</li>
+<li><strong>Ask-the-user threshold:</strong> after one failed attempt if the blocker is missing input or authorization</li>
+<li><strong>Verification requirement:</strong> mandatory before final output for high-impact tasks</li>
+</ul>
+<p>These defaults are conservative on purpose. You can always loosen them after you see real traces.</p>
+<hr>
+<h2>Common loop mistakes</h2>
+<h3>1) Infinite retries</h3>
+<p>If the same step keeps failing, the loop should change something meaningful or stop.</p>
+<h3>2) Giant planning before any observation</h3>
+<p>If the task depends on tools, get evidence early. Thought → Action → Observation works because it interleaves reasoning with real feedback [S4].</p>
+<h3>3) No success criteria</h3>
+<p>Without a definition of done, the loop either stops too soon or never stops cleanly.</p>
+<h3>4) Treating activity as progress</h3>
+<p>More steps do not mean a better loop. A good loop reduces uncertainty or moves the task closer to done.</p>
+<h3>5) Carrying the whole transcript forever</h3>
+<p>That is not memory. That is context bloat.</p>
+<h3>6) Ending on an unverified claim</h3>
+<p>Do not stop on “this should work” when you can check.</p>
+<hr>
+<h2>The build recipe</h2>
+<p>If you need a practical recipe, use this one:</p>
+<ol>
+<li><strong>Write the goal in one sentence</strong></li>
+<li><strong>List 2–4 concrete success criteria</strong></li>
+<li><strong>Define what counts as acceptable evidence</strong></li>
+<li><strong>Create a small state object</strong></li>
+<li><strong>Limit each iteration to one bounded action</strong></li>
+<li><strong>Summarize results into structured observations</strong></li>
+<li><strong>Retry once, retry twice only with changed parameters</strong></li>
+<li><strong>Re-plan after repeated failure</strong></li>
+<li><strong>Ask the user when the blocker is missing input or authority</strong></li>
+<li><strong>Stop on success, no progress, or budget</strong></li>
+</ol>
+<p>That is how you create a loop that is useful in practice, not just elegant on a whiteboard.</p>
+<h2>The takeaway</h2>
+<p>A loop in an AI agent is the repeated cycle that lets the system <strong>act, inspect, and adjust</strong> rather than answer once and hope for the best. The standard pattern is <strong>Thought → Action → Observation</strong>, repeated until a clear stop condition is met [S4]. That structure is what makes agents effective on tasks that require tools, intermediate decisions, and interaction with changing state [S1][S2].</p>
+<p>The best loops are not elaborate. They are disciplined.</p>
+<p>They have:</p>
+<ul>
+<li>a sharp goal</li>
+<li>explicit success criteria</li>
+<li>small state</li>
+<li>one bounded action per iteration</li>
+<li>decision-ready observations</li>
+<li>hard stop rules</li>
+</ul>
+<p>If you remember one rule, make it this:</p>
+<p><strong>A good loop does not keep going because it can. It keeps going only while each step earns the next one.</strong></p>
+<hr>
+<h2>Sources</h2>
+<ul>
+<li>[S1] <a href="https://arxiv.org/html/2601.01743v1">AI Agent Systems: Architectures, Applications, and Evaluation - arXiv</a></li>
+<li>[S2] <a href="https://arxiv.org/html/2601.12560v1">Agentic Artificial Intelligence (AI): Architectures, Taxonomies, and Evaluation of Large Language Model Agents</a></li>
+<li>[S3] <a href="https://github.com/fredabila/orcbot">Show HN: Orcbot – an open-source autonomous agent framework</a></li>
+<li>[S4] <a href="https://huggingface.co/learn/agents-course/en/unit1/agent-steps-and-structure">Understanding AI Agents through the Thought-Action-Observation Cycle</a></li>
+<li>[S5] <a href="https://arxiv.org/html/2507.21046v4">A Survey of Self-Evolving Agents What, When, How, and Where to ...</a></li>
+<li>[S6] <a href="https://github.com/VoltAgent/awesome-ai-agent-papers">GitHub - VoltAgent/awesome-ai-agent-papers: A curated collection of AI agent research papers released in 2026, covering agent engineering, memory, evaluation, workflows, and autonomous systems. · GitHub</a></li>
+<li>[S7] <a href="https://arxiv.org/html/2605.24219v2">Auditing Trajectory-Level Hallucinations in Multi-Agent Industrial ...</a></li>
+<li>[S8] <a href="https://arxiv.org/html/2605.30777v1">What Breaks When LLMs Code? Characterizing Operational Safety Failures of Agentic Code Assistants</a></li>
+<li>[S9] <a href="https://arxiv.org/html/2511.14136v1">Beyond Accuracy: A Multi-Dimensional Framework for Evaluating Enterprise Agentic AI Systems</a></li>
+<li>[S10] <a href="https://arxiv.org/html/2508.11957v1">A Comprehensive Review of AI Agents: Transforming Possibilities in Technology and Beyond</a></li>
+<li>[S11] <a href="https://github.com/luo-junyu/awesome-agent-papers">luo-junyu/Awesome-Agent-Papers - GitHub</a></li>
+<li>[S12] <a href="https://news.ycombinator.com/item?id=47336498">Diffusion LLM may make most of the AI engineering stack obsolete</a></li>
+</ul>
+<hr>
+<p><em>Generated by PulseAI — content self-refined over 2 round(s) to 88/100 (onTopic 93, grounding 74). Flowchart: model-authored labels + deterministic SVG layout. Source research scored 78.</em></p>
+</div>
+</article></body></html>

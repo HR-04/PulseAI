@@ -1,0 +1,66 @@
+<svg viewBox="0 0 760 640" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrAmber" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#d97706"/>
+    </marker>
+    <style>
+      .lbl{font-size:14px;fill:#0f172a;font-weight:600}
+      .sub{font-size:11px;fill:#475569}
+      .edge{stroke:#475569;stroke-width:1.6;fill:none;marker-end:url(#arr)}
+      .loop{stroke:#d97706;stroke-width:2;fill:none;stroke-dasharray:6 4;marker-end:url(#arrAmber)}
+      .tag{font-size:11px;font-weight:700;letter-spacing:.5px}
+    </style>
+  </defs>
+
+  <text x="380" y="30" text-anchor="middle" font-size="20" font-weight="800" fill="#0f172a">Anatomy of a Self-Improving Loop</text>
+  <text x="380" y="50" text-anchor="middle" class="sub">act → measure → assess → refine, with a defined way out</text>
+
+  <!-- GOAL -->
+  <rect x="270" y="74" width="220" height="56" rx="11" fill="#eef2ff" stroke="#6366f1" stroke-width="1.6"/>
+  <text x="380" y="98" text-anchor="middle" class="lbl">1 · GOAL + TARGET</text>
+  <text x="380" y="116" text-anchor="middle" class="sub">a concrete target (e.g. score ≥ 75)</text>
+
+  <!-- ACT -->
+  <rect x="270" y="166" width="220" height="56" rx="11" fill="#ecfeff" stroke="#0891b2" stroke-width="1.6"/>
+  <text x="380" y="190" text-anchor="middle" class="lbl">2 · ACT</text>
+  <text x="380" y="208" text-anchor="middle" class="sub">plan → do the work this round</text>
+
+  <!-- MEASURE -->
+  <rect x="270" y="258" width="220" height="56" rx="11" fill="#faf5ff" stroke="#9333ea" stroke-width="1.6"/>
+  <text x="380" y="282" text-anchor="middle" class="lbl">3 · MEASURE</text>
+  <text x="380" y="300" text-anchor="middle" class="sub">score on ONE explicit metric</text>
+
+  <!-- ASSESS diamond -->
+  <polygon points="380,338 500,398 380,458 260,398" fill="#fff7ed" stroke="#d97706" stroke-width="1.8"/>
+  <text x="380" y="392" text-anchor="middle" class="lbl">4 · ASSESS</text>
+  <text x="380" y="410" text-anchor="middle" class="sub">stop?</text>
+
+  <!-- EXIT -->
+  <rect x="270" y="494" width="220" height="58" rx="11" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+  <text x="380" y="518" text-anchor="middle" class="lbl">5 · EXIT &amp; COMMIT</text>
+  <text x="380" y="536" text-anchor="middle" class="sub">synthesize / ship the result</text>
+
+  <!-- edges down -->
+  <path class="edge" d="M380,130 L380,166"/>
+  <path class="edge" d="M380,222 L380,258"/>
+  <path class="edge" d="M380,314 L380,338"/>
+  <path class="edge" d="M380,458 L380,494"/>
+  <text x="398" y="482" class="tag" fill="#16a34a">YES</text>
+
+  <!-- feedback loop: from diamond left, around to ACT left -->
+  <path class="loop" d="M260,398 C150,398 150,194 270,194"/>
+  <text x="120" y="300" class="tag" fill="#d97706" text-anchor="middle" transform="rotate(-90 120 300)">NO · refine toward the weakest signal</text>
+
+  <!-- STOP conditions callout -->
+  <rect x="520" y="346" width="222" height="104" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <text x="532" y="368" class="tag" fill="#dc2626">STOP WHEN ANY:</text>
+  <text x="532" y="389" class="sub">• target reached (score ≥ target)</text>
+  <text x="532" y="409" class="sub">• max iterations hit (hard cap)</text>
+  <text x="532" y="429" class="sub">• plateau (Δ &lt; min gain)</text>
+  <path class="edge" d="M500,398 L520,398" stroke-dasharray="3 3"/>
+
+  <text x="380" y="600" text-anchor="middle" class="sub">The dashed path is the only thing that makes it a loop. The red box is the only thing that makes it safe.</text>
+</svg>

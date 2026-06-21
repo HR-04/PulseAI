@@ -1,0 +1,101 @@
+{
+  "topic": "small language models",
+  "mode": "content",
+  "createdAt": "2026-06-21T16:22:21.450Z",
+  "finalScore": 70,
+  "sourceCount": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "queries": [
+        "small language models architecture and training techniques efficiency distillation quantization sparsity",
+        "small language models benchmark performance reasoning coding multilingual tasks comparison with large language models",
+        "small language models on-device edge deployment latency memory power mobile cpu npu inference",
+        "small language models enterprise use cases privacy cost fine-tuning retrieval agents local deployment",
+        "open-source small language models 2025 model families licenses context window hardware requirements"
+      ],
+      "found": 202,
+      "rejected": 25,
+      "score": 74,
+      "breakdown": {
+        "sourceQuality": 92,
+        "diversity": 48,
+        "coverage": 71,
+        "recency": 76,
+        "researchScore": 74,
+        "perQuery": [
+          {
+            "query": "small language models architecture and training techniques efficiency distillation quantization sparsity",
+            "answered": true,
+            "strength": 90
+          },
+          {
+            "query": "small language models benchmark performance reasoning coding multilingual tasks comparison with large language models",
+            "answered": false,
+            "strength": 62
+          },
+          {
+            "query": "small language models on-device edge deployment latency memory power mobile cpu npu inference",
+            "answered": true,
+            "strength": 84
+          },
+          {
+            "query": "small language models enterprise use cases privacy cost fine-tuning retrieval agents local deployment",
+            "answered": true,
+            "strength": 82
+          },
+          {
+            "query": "open-source small language models 2025 model families licenses context window hardware requirements",
+            "answered": false,
+            "strength": 38
+          }
+        ],
+        "weakest": "diversity"
+      },
+      "decision": {
+        "stop": false,
+        "reason": "score 74 < target 75; refine & continue"
+      }
+    },
+    {
+      "round": 2,
+      "queries": [
+        "small language models benchmark performance reasoning coding multilingual evaluation comparison versus large language models 2025",
+        "open-source small language models 2025 model families licenses context window parameter sizes hardware requirements gpu ram",
+        "small language models safety robustness hallucination bias jailbreaks domain reliability evaluation real-world deployment"
+      ],
+      "found": 127,
+      "rejected": 19,
+      "score": 70,
+      "breakdown": {
+        "sourceQuality": 92,
+        "diversity": 48,
+        "coverage": 58,
+        "recency": 76,
+        "researchScore": 70,
+        "perQuery": [
+          {
+            "query": "small language models benchmark performance reasoning coding multilingual evaluation comparison versus large language models 2025",
+            "answered": true,
+            "strength": 78
+          },
+          {
+            "query": "open-source small language models 2025 model families licenses context window parameter sizes hardware requirements gpu ram",
+            "answered": false,
+            "strength": 44
+          },
+          {
+            "query": "small language models safety robustness hallucination bias jailbreaks domain reliability evaluation real-world deployment",
+            "answered": false,
+            "strength": 51
+          }
+        ],
+        "weakest": "diversity"
+      },
+      "decision": {
+        "stop": true,
+        "reason": "plateau: gain -4 < MIN_GAIN 5"
+      }
+    }
+  ]
+}

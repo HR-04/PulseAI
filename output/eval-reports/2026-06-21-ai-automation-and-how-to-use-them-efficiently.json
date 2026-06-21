@@ -1,0 +1,101 @@
+{
+  "topic": "AI automation and how to use them efficiently",
+  "mode": "content",
+  "createdAt": "2026-06-21T18:16:32.532Z",
+  "finalScore": 59,
+  "sourceCount": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "queries": [
+        "AI automation use cases and workflows for business productivity and operations",
+        "best practices for implementing AI automation efficiently including process design and human oversight",
+        "AI automation tools comparison for content creation customer support data analysis and task automation",
+        "how to measure ROI and performance of AI automation with KPIs cost savings and time savings",
+        "AI automation risks limitations and governance including privacy security bias and compliance"
+      ],
+      "found": 174,
+      "rejected": 15,
+      "score": 68,
+      "breakdown": {
+        "sourceQuality": 83,
+        "diversity": 60,
+        "coverage": 53,
+        "recency": 84,
+        "researchScore": 68,
+        "perQuery": [
+          {
+            "query": "AI automation use cases and workflows for business productivity and operations",
+            "answered": true,
+            "strength": 78
+          },
+          {
+            "query": "best practices for implementing AI automation efficiently including process design and human oversight",
+            "answered": false,
+            "strength": 42
+          },
+          {
+            "query": "AI automation tools comparison for content creation customer support data analysis and task automation",
+            "answered": false,
+            "strength": 28
+          },
+          {
+            "query": "how to measure ROI and performance of AI automation with KPIs cost savings and time savings",
+            "answered": false,
+            "strength": 35
+          },
+          {
+            "query": "AI automation risks limitations and governance including privacy security bias and compliance",
+            "answered": true,
+            "strength": 82
+          }
+        ],
+        "weakest": "coverage"
+      },
+      "decision": {
+        "stop": false,
+        "reason": "score 68 < target 75; refine & continue"
+      }
+    },
+    {
+      "round": 2,
+      "queries": [
+        "best practices for implementing AI automation efficiently process mapping workflow redesign human-in-the-loop oversight change management prompt standards",
+        "AI automation tools comparison 2026 for content creation customer support data analysis and task automation features integrations pricing evaluation criteria",
+        "how to measure AI automation ROI and performance KPIs cost savings time savings accuracy throughput payback period benchmark case studies"
+      ],
+      "found": 113,
+      "rejected": 15,
+      "score": 59,
+      "breakdown": {
+        "sourceQuality": 83,
+        "diversity": 60,
+        "coverage": 27,
+        "recency": 84,
+        "researchScore": 59,
+        "perQuery": [
+          {
+            "query": "best practices for implementing AI automation efficiently process mapping workflow redesign human-in-the-loop oversight change management prompt standards",
+            "answered": false,
+            "strength": 41
+          },
+          {
+            "query": "AI automation tools comparison 2026 for content creation customer support data analysis and task automation features integrations pricing evaluation criteria",
+            "answered": false,
+            "strength": 12
+          },
+          {
+            "query": "how to measure AI automation ROI and performance KPIs cost savings time savings accuracy throughput payback period benchmark case studies",
+            "answered": false,
+            "strength": 29
+          }
+        ],
+        "weakest": "coverage"
+      },
+      "decision": {
+        "stop": true,
+        "reason": "plateau: gain -9 < MIN_GAIN 5"
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "topic": "how to design and build good AI agent loops: stopping criteria, retry vs repair, verification, observability best practices",
+  "mode": "content",
+  "createdAt": "2026-06-21T17:14:52.346Z",
+  "finalScore": 76,
+  "sourceCount": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "queries": [
+        "AI agent loop design patterns stopping criteria termination conditions max iterations timeouts budget limits best practices",
+        "AI agent retries vs self-repair error recovery strategies for LLM agents when to retry regenerate replan or fix tool-call failures",
+        "verification and guardrails for AI agents result validation hallucination checks constraint checking unit tests evaluator models best practices",
+        "observability for AI agents tracing logging metrics monitoring spans token cost latency tool usage debugging production best practices",
+        "multi-step AI agent orchestration reliability human-in-the-loop checkpointing state management rollback memory planning execution loop best practices"
+      ],
+      "found": 158,
+      "rejected": 2,
+      "score": 76,
+      "breakdown": {
+        "sourceQuality": 85,
+        "diversity": 56,
+        "coverage": 74,
+        "recency": 91,
+        "researchScore": 76,
+        "perQuery": [
+          {
+            "query": "AI agent loop design patterns stopping criteria termination conditions max iterations timeouts budget limits best practices",
+            "answered": true,
+            "strength": 79
+          },
+          {
+            "query": "AI agent retries vs self-repair error recovery strategies for LLM agents when to retry regenerate replan or fix tool-call failures",
+            "answered": true,
+            "strength": 84
+          },
+          {
+            "query": "verification and guardrails for AI agents result validation hallucination checks constraint checking unit tests evaluator models best practices",
+            "answered": true,
+            "strength": 76
+          },
+          {
+            "query": "observability for AI agents tracing logging metrics monitoring spans token cost latency tool usage debugging production best practices",
+            "answered": true,
+            "strength": 62
+          },
+          {
+            "query": "multi-step AI agent orchestration reliability human-in-the-loop checkpointing state management rollback memory planning execution loop best practices",
+            "answered": true,
+            "strength": 68
+          }
+        ],
+        "weakest": "diversity"
+      },
+      "decision": {
+        "stop": true,
+        "reason": "score 76 ≥ target 75"
+      }
+    }
+  ]
+}
