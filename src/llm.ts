@@ -15,15 +15,15 @@ export interface LLM {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// Aptean Intelligence Studio (AIS) — App Central gateway.
+// Intelligence Studio (AIS) — App Central gateway.
 // Auth = IAM client_credentials JWT (Bearer) + Intelligence Studio x-api-key.
 // The deployed flow is wired ChatInput → Agent → ChatOutput, so a plain
 // payload routes correctly. The Agent (gpt-5.4-mini) may also call its Web
 // Search / Image Generator tools — PulseAI's prompts steer it to answer
 // directly for the loop's reasoning calls.
 // ───────────────────────────────────────────────────────────────────────────
-class ApteanAISProvider implements LLM {
-  readonly name = "aptean-ais";
+class AISProvider implements LLM {
+  readonly name = "ais";
   private token: string | null = null;
   private tokenExpiresAtMs = 0;
 
@@ -31,8 +31,8 @@ class ApteanAISProvider implements LLM {
     const { tokenUrl, clientId, clientSecret } = config.ais;
     if (!tokenUrl || !clientId || !clientSecret) {
       throw new Error(
-        "AIS not configured: set APTEAN_IAM_TOKEN_URL, APTEAN_IAM_CLIENT_ID, " +
-          "APTEAN_IAM_CLIENT_SECRET (and AIS_RUN_URL) in .env",
+        "AIS not configured: set IAM_TOKEN_URL, IAM_CLIENT_ID, " +
+          "IAM_CLIENT_SECRET (and AIS_RUN_URL) in .env",
       );
     }
     // Reuse the token until ~60s before expiry.
@@ -74,7 +74,7 @@ class ApteanAISProvider implements LLM {
     };
     // Override the model node's Azure deployment per-run (e.g. gpt-5.4) without
     // re-importing the flow. Input still routes through ChatInput.
-    if (azureDeployment) {
+    if (azureDeployment && modelNodeId) {
       payload.tweaks = { [modelNodeId]: { azure_deployment: azureDeployment } };
     }
 
@@ -187,9 +187,9 @@ export function getLLM(): LLM {
     case "ollama":
       cached = new OllamaProvider();
       break;
-    case "aptean-ais":
+    case "ais":
     default:
-      cached = new ApteanAISProvider();
+      cached = new AISProvider();
       break;
   }
   return cached;

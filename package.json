@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Self-improving research agent (Aptean Intelligence Studio model backend).",
+  "description": "Self-improving research agent (Intelligence Studio model backend).",
   "engines": {
     "node": ">=20"
   },

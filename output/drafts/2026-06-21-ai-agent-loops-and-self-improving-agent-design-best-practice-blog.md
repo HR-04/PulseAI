@@ -1,4 +1,4 @@
-![illustration](https://appcentral-int.aptean.com/ais/api/v1/secure/documents/329ff2c3-ae9f-48f4-b0b0-9dd401a31208/download)
+![illustration](https://your-ais-gateway/ais/api/v1/secure/documents/329ff2c3-ae9f-48f4-b0b0-9dd401a31208/download)
 
 # AI Agent Loops and Self-Improvement in Agent Design
 

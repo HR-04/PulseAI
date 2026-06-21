@@ -89,7 +89,7 @@ async function main(): Promise<void> {
   const blogFile = `output/drafts/${base}-blog.md`;
   const blog =
     `${imgRef}${refined.draft}\n\n---\n\n## Sources\n${sources}\n\n---\n\n` +
-    `*Generated solely by PulseAI (Aptean Intelligence Studio): text by the gpt-5.4 agent, ` +
+    `*Generated solely by PulseAI (Intelligence Studio): text by the gpt-5.4 agent, ` +
     `image by its Image Generator model. Content self-refined to ${refined.score.overall}/100 ` +
     `(onTopic ${refined.score.onTopic}). Source research scored ${r.researchScore}.*\n`;
   await writeFile(blogFile, blog, "utf8");

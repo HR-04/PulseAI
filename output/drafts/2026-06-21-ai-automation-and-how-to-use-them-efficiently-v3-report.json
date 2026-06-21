@@ -17,7 +17,7 @@
   ],
   "rounds": 2,
   "image": {
-    "url": "https://appcentral-int.aptean.com/ais/api/v1/secure/documents/ea5ed76a-4374-4993-99f4-482cd4d46a2d/download",
+    "url": "https://your-ais-gateway/ais/api/v1/secure/documents/ea5ed76a-4374-4993-99f4-482cd4d46a2d/download",
     "localPath": "output/drafts/2026-06-21-ai-automation-and-how-to-use-them-efficiently-v3-image.png"
   },
   "files": {

@@ -3,7 +3,7 @@
 
 export const config = {
   // --- Model backend ---
-  LLM_PROVIDER: process.env.LLM_PROVIDER ?? "aptean-ais",
+  LLM_PROVIDER: process.env.LLM_PROVIDER ?? "ais",
 
   // --- Self-improving loop (§3) ---
   TARGET: 75, // researchScore that stops the loop
@@ -15,16 +15,16 @@ export const config = {
   SEARXNG_URL: process.env.SEARXNG_URL ?? "http://localhost:8080",
   RESULTS_PER_QUERY: 8,
 
-  // --- Aptean Intelligence Studio (model backend) ---
+  // --- Intelligence Studio (model backend) ---
   ais: {
-    tokenUrl: process.env.APTEAN_IAM_TOKEN_URL ?? "",
+    tokenUrl: process.env.IAM_TOKEN_URL ?? "",
     runUrl: process.env.AIS_RUN_URL ?? "",
     apiKey: process.env.INTELLIGENCE_STUDIO_API_KEY ?? "",
-    clientId: process.env.APTEAN_IAM_CLIENT_ID ?? "",
-    clientSecret: process.env.APTEAN_IAM_CLIENT_SECRET ?? "",
+    clientId: process.env.IAM_CLIENT_ID ?? "",
+    clientSecret: process.env.IAM_CLIENT_SECRET ?? "",
     // Override the flow's Azure deployment per-run via tweaks (flow ships with
     // gpt-5.4-mini; we run gpt-5.4). Empty AIS_AZURE_DEPLOYMENT = use flow default.
-    modelNodeId: process.env.AIS_MODEL_NODE_ID ?? "ApteanAzureOpenAIModel-5T71r",
+    modelNodeId: process.env.AIS_MODEL_NODE_ID ?? "",
     azureDeployment: process.env.AIS_AZURE_DEPLOYMENT ?? "gpt-5.4",
   },
 

@@ -297,4 +297,4 @@ That is the practical payoff: **AI automation works best when you treat it as wo
 
 ---
 
-*Generated solely by PulseAI (Aptean Intelligence Studio): text by the gpt-5.4 agent, image by its Image Generator model. Content self-refined to 85/100 (onTopic 88). Source research scored 59.*
+*Generated solely by PulseAI (Intelligence Studio): text by the gpt-5.4 agent, image by its Image Generator model. Content self-refined to 85/100 (onTopic 88). Source research scored 59.*

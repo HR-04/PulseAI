@@ -5,7 +5,7 @@ web + communities, filters out low-quality sources, deep-reads the good ones, sc
 own research, and **loops until the research is strong enough** — then synthesizes a
 thesis with cited claims and saves it to a notebook.
 
-The model backend is **Aptean Intelligence Studio** (the deployed `AI-News-Model` agent),
+The model backend is **Intelligence Studio** (the deployed `AI-News-Model` agent),
 called through the App Central gateway. It's swappable via one interface (`src/llm.ts`).
 
 > **Status: Phase 1 complete** — the research loop runs end-to-end. Phases 2 (content
@@ -37,14 +37,14 @@ npm install
 cp .env.example .env     # then fill in the AIS credentials (see below)
 ```
 
-`.env` (git-ignored) needs the Aptean Intelligence Studio credentials:
+`.env` (git-ignored) needs the Intelligence Studio credentials:
 ```
-LLM_PROVIDER=aptean-ais
+LLM_PROVIDER=ais
 INTELLIGENCE_STUDIO_API_KEY="sk-..."
-APTEAN_IAM_CLIENT_ID="...-SERVICE"
-APTEAN_IAM_CLIENT_SECRET="..."
-APTEAN_IAM_TOKEN_URL="https://appcentral-int.aptean.com/iam/auth/realms/aptean/protocol/openid-connect/token"
-AIS_RUN_URL="https://appcentral-int.aptean.com/ais/api/v1/run/<flow-id>"
+IAM_CLIENT_ID="...-SERVICE"
+IAM_CLIENT_SECRET="..."
+IAM_TOKEN_URL="https://your-ais-gateway/iam/auth/realms/ais/protocol/openid-connect/token"
+AIS_RUN_URL="https://your-ais-gateway/ais/api/v1/run/<flow-id>"
 ```
 
 **SearXNG (optional but recommended)** for whole-web breadth — see [searxng/SETUP.md](searxng/SETUP.md).
@@ -79,7 +79,7 @@ Output lands in:
 | `MIN_GAIN` | 5 | plateau threshold |
 | `FRESHNESS_DAYS` | 365 | non-evergreen recency window |
 | `RESULTS_PER_QUERY` | 8 | per-query result target |
-| `LLM_PROVIDER` | `aptean-ais` | model backend (`aptean-ais` \| `ollama`) |
+| `LLM_PROVIDER` | `ais` | model backend (`ais` \| `ollama`) |
 
 ---
 
